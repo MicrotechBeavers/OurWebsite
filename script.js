@@ -56,14 +56,14 @@ inquiryForm.addEventListener('submit', (e) => {
     inquiryForm.reset();
 });
 
-// Scroll Animation for Service Cards
+// Scroll Animation for Cards
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '0';
             entry.target.style.transform = 'translateY(20px)';
@@ -72,24 +72,93 @@ const observer = new IntersectionObserver((entries) => {
                 entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-            }, 100);
+            }, 100 * index);
 
             observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observe all service cards, why cards, and portfolio items
-document.querySelectorAll('.service-card, .why-card, .portfolio-item').forEach(card => {
+// Observe all cards
+document.querySelectorAll('.service-card, .why-card, .portfolio-item, .tech-item').forEach(card => {
     observer.observe(card);
 });
 
-// Navbar background change on scroll
+// Counter Animation for Stats
+function animateCounter(element, target, duration = 2000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
+}
+
+// Observe stats for counter animation
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statElement = entry.target.querySelector('h4');
+            const text = statElement.textContent;
+
+            // Check if it's a number
+            if (!isNaN(parseInt(text))) {
+                const targetNumber = parseInt(text);
+                animateCounter(statElement, targetNumber);
+            }
+
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat').forEach(stat => {
+    statsObserver.observe(stat);
+});
+
+// Navbar background change on scroll and parallax effect
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
+    const scrollY = window.scrollY;
+
+    // Navbar shadow
+    if (scrollY > 50) {
         navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.15)';
     } else {
         navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     }
+
+    // Parallax effect for hero shapes
+    const shapes = document.querySelectorAll('.shape');
+    shapes.forEach((shape, index) => {
+        const speed = (index + 1) * 0.5;
+        shape.style.transform = `translateY(${scrollY * speed}px)`;
+    });
+});
+
+// Add Pulse Animation to CTA Button
+const ctaButton = document.querySelector('.cta-button');
+setInterval(() => {
+    ctaButton.style.animation = 'none';
+    setTimeout(() => {
+        ctaButton.style.animation = 'pulse 1s ease';
+    }, 10);
+}, 5000);
+
+// Input Focus Effects
+document.querySelectorAll('.inquiry-form input, .inquiry-form textarea, .inquiry-form select').forEach(input => {
+    input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'scale(1.02)';
+    });
+
+    input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'scale(1)';
+    });
 });

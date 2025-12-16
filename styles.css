@@ -19,6 +19,9 @@
     --text-dark: #2C3E50;
     --text-light: #5A6C7D;
     --success: #52C9A3;
+    --gradient-primary: linear-gradient(135deg, #305669 0%, #8ABEB9 100%);
+    --gradient-accent: linear-gradient(135deg, #C1785A 0%, #E89A7E 100%);
+    --gradient-success: linear-gradient(135deg, #52C9A3 0%, #B7E5CD 100%);
 }
 
 body {
@@ -74,6 +77,21 @@ body {
     margin-bottom: 1rem;
     color: var(--text-dark);
     font-weight: 700;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-accent);
+    border-radius: 2px;
 }
 
 .section-subtitle {
@@ -198,6 +216,72 @@ body {
     pointer-events: none;
 }
 
+/* Hero Floating Shapes */
+.hero-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    animation: float 20s infinite ease-in-out;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #B7E5CD, #8ABEB9);
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #C1785A, #E89A7E);
+    top: 60%;
+    right: 10%;
+    animation-delay: 5s;
+}
+
+.shape-3 {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #52C9A3, #B7E5CD);
+    bottom: 20%;
+    left: 15%;
+    animation-delay: 10s;
+}
+
+.shape-4 {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, #8ABEB9, #305669);
+    top: 30%;
+    right: 20%;
+    animation-delay: 15s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-30px) rotate(120deg);
+    }
+    66% {
+        transform: translateY(30px) rotate(240deg);
+    }
+}
+
 .hero-content {
     position: relative;
     z-index: 1;
@@ -211,6 +295,24 @@ body {
     animation: fadeInUp 1s ease;
 }
 
+.hero-content h1 .highlight {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.3);
+    }
+}
+
 .hero-content p {
     font-size: 1.35rem;
     margin-bottom: 2.5rem;
@@ -220,30 +322,77 @@ body {
     animation-fill-mode: both;
 }
 
+.hero-content p .accent-text {
+    color: #B7E5CD;
+    font-weight: 500;
+}
+
 .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     padding: 1.1rem 2.8rem;
-    background: var(--accent-color);
+    background: var(--gradient-accent);
     color: white;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, gap 0.3s ease;
     animation: fadeInUp 1s ease 0.4s;
     animation-fill-mode: both;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 20px rgba(193, 120, 90, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
 
 .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 12px 30px rgba(193, 120, 90, 0.5);
+    gap: 15px;
+}
+
+.cta-button i {
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover i {
+    transform: translateX(5px);
 }
 
 /* Services Section */
 .services {
     padding: 90px 20px;
     background: var(--light-bg);
+    position: relative;
+}
+
+.services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(138, 190, 185, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(183, 229, 205, 0.15) 0%, transparent 30%);
+    pointer-events: none;
 }
 
 .services-grid {
@@ -258,19 +407,51 @@ body {
     padding: 2.5rem;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(48, 86, 105, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     text-align: center;
     border: 1px solid rgba(138, 190, 185, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.service-card:hover::before {
+    opacity: 0.05;
 }
 
 .service-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 35px rgba(138, 190, 185, 0.25);
+    border-color: var(--secondary-color);
+}
+
+.service-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .service-icon {
     font-size: 3.5rem;
     margin-bottom: 1.2rem;
+    color: var(--primary-color);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotateY(360deg);
+    color: var(--secondary-color);
 }
 
 .service-card h3 {
@@ -379,6 +560,20 @@ body {
 .why-us {
     padding: 90px 20px;
     background: var(--light-bg);
+    position: relative;
+}
+
+.why-us::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 80% 20%, rgba(193, 120, 90, 0.12) 0%, transparent 30%),
+        radial-gradient(circle at 20% 80%, rgba(138, 190, 185, 0.12) 0%, transparent 30%);
+    pointer-events: none;
 }
 
 .why-us-grid {
@@ -406,6 +601,13 @@ body {
 .why-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.why-card:hover .why-icon {
+    transform: scale(1.15) rotateZ(10deg);
+    color: var(--accent-color);
 }
 
 .why-card h3 {
@@ -456,14 +658,34 @@ body {
 .stat {
     text-align: center;
     padding: 2rem;
-    background: var(--light-mint);
+    background: var(--gradient-success);
     border-radius: 15px;
     border: 2px solid rgba(138, 190, 185, 0.3);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat:hover::before {
+    opacity: 1;
 }
 
 .stat:hover {
     transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(82, 201, 163, 0.3);
+    border-color: var(--success);
 }
 
 .stat h4 {
@@ -471,18 +693,121 @@ body {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
     font-weight: 700;
+    position: relative;
+    z-index: 1;
 }
 
 .stat p {
     color: var(--text-light);
     font-size: 1rem;
     font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+/* Technology Stack Section */
+.technologies {
+    padding: 90px 20px;
+    background: white;
+    position: relative;
+}
+
+.technologies::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(138, 190, 185, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(193, 120, 90, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tech-item {
+    background: var(--light-bg);
+    padding: 2rem 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tech-item:hover::before {
+    opacity: 0.1;
+}
+
+.tech-item:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--secondary-color);
+    box-shadow: 0 10px 30px rgba(138, 190, 185, 0.2);
+}
+
+.tech-logo {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.tech-item:hover .tech-logo {
+    transform: rotateY(360deg) scale(1.1);
+    color: var(--secondary-color);
+}
+
+.tech-item h4 {
+    color: var(--text-dark);
+    font-size: 1rem;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
 }
 
 /* Inquiry Section */
 .inquiry {
     padding: 90px 20px;
     background: var(--light-bg);
+    position: relative;
+}
+
+.inquiry::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 30% 30%, rgba(138, 190, 185, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(183, 229, 205, 0.15) 0%, transparent 40%);
+    pointer-events: none;
 }
 
 .inquiry-content {
@@ -491,6 +816,8 @@ body {
     gap: 4rem;
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .inquiry-info h3 {
@@ -580,7 +907,7 @@ body {
     border-radius: 10px;
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     background: white;
     color: var(--text-dark);
 }
@@ -589,8 +916,26 @@ body {
 .inquiry-form textarea:focus,
 .inquiry-form select:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(138, 190, 185, 0.15);
+    transform: translateY(-2px);
+}
+
+.inquiry-form input:valid,
+.inquiry-form textarea:valid {
+    border-color: var(--success);
+}
+
+.inquiry-form input::placeholder,
+.inquiry-form textarea::placeholder {
+    color: var(--text-light);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.inquiry-form input:focus::placeholder,
+.inquiry-form textarea:focus::placeholder {
+    opacity: 0.4;
 }
 
 .inquiry-form select {
@@ -614,7 +959,7 @@ body {
 
 .submit-button {
     padding: 1.2rem 2.5rem;
-    background: var(--accent-color);
+    background: var(--gradient-accent);
     color: white;
     border: none;
     border-radius: 10px;
@@ -623,11 +968,31 @@ body {
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-top: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.submit-button:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .submit-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(193, 120, 90, 0.4);
+    box-shadow: 0 8px 20px rgba(193, 120, 90, 0.5);
 }
 
 /* Footer */
@@ -652,6 +1017,27 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
 
