@@ -258,6 +258,14 @@ body {
     overflow: hidden;
 }
 
+@media (max-width: 768px) {
+    .hero {
+        padding: 100px 20px 80px;
+        min-height: auto;
+        align-items: flex-start;
+    }
+}
+
 .hero::before {
     content: '';
     position: absolute;
@@ -1350,11 +1358,16 @@ body {
 
     /* Hero Logo Responsive */
     .hero-logo {
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
+        margin-top: 1rem;
     }
 
     .hero-logo img {
-        height: 200px;
+        height: 180px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
     }
 }
 
@@ -1378,10 +1391,25 @@ body {
 
     /* Smaller hero logo on mobile */
     .hero-logo {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
+        margin-top: 1rem;
     }
 
     .hero-logo img {
-        height: 150px;
+        height: 120px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tech-indicators {
+        margin-bottom: 1.5rem;
     }
 }
