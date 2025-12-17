@@ -38,6 +38,8 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <canvas id="matrix-canvas" class="matrix-bg"></canvas>
+        <div class="grid-overlay"></div>
         <div class="hero-shapes">
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
@@ -45,8 +47,15 @@
             <div class="shape shape-4"></div>
         </div>
         <div class="hero-content">
-            <h1><span class="highlight">Building</span> Digital Excellence</h1>
+            <div class="glitch-wrapper">
+                <h1 class="glitch" data-text="Building Digital Excellence"><span class="highlight">Building</span> Digital Excellence</h1>
+            </div>
             <p>Web Development Experts Crafting <span class="accent-text">Custom Solutions</span> for Your Business</p>
+            <div class="tech-indicators">
+                <span class="tech-badge"><i class="fas fa-terminal"></i> Full-Stack</span>
+                <span class="tech-badge"><i class="fas fa-code"></i> Modern Tech</span>
+                <span class="tech-badge"><i class="fas fa-server"></i> Cloud-Native</span>
+            </div>
             <a href="#inquiry" class="cta-button">
                 Get Started
                 <i class="fas fa-arrow-right"></i>
@@ -56,6 +65,8 @@
 
     <!-- Services Section -->
     <section id="services" class="services">
+        <div class="grid-overlay"></div>
+        <div class="scanline"></div>
         <div class="container">
             <h2 class="section-title">Our Services</h2>
             <div class="services-grid">
@@ -157,6 +168,7 @@
 
     <!-- About Section -->
     <section id="about" class="about">
+        <div class="grid-overlay"></div>
         <div class="container">
             <h2 class="section-title">About Us</h2>
             <div class="about-content">
@@ -164,6 +176,25 @@
                     <h3>Web Development Experts You Can Trust</h3>
                     <p>At Microtech Beavers, we're passionate about creating exceptional web experiences. Our team of skilled developers and designers work tirelessly to deliver custom solutions that help businesses thrive in the digital world.</p>
                     <p>With experience and a commitment to excellence, we transform ideas into powerful, functional websites that drive results.</p>
+
+                    <div class="code-showcase">
+                        <div class="terminal-window">
+                            <div class="terminal-header">
+                                <span class="terminal-dot red"></span>
+                                <span class="terminal-dot yellow"></span>
+                                <span class="terminal-dot green"></span>
+                                <span class="terminal-title">development.sh</span>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-line"><span class="prompt">$</span> npm run build</div>
+                                <div class="terminal-line output">Building for production...</div>
+                                <div class="terminal-line output">✓ Optimized bundle created</div>
+                                <div class="terminal-line output">✓ Performance: 98/100</div>
+                                <div class="terminal-line"><span class="prompt">$</span> <span class="cursor">|</span></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="stats">
                         <div class="stat">
                             <h4>100%</h4>
